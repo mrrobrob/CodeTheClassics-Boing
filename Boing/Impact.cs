@@ -8,7 +8,7 @@ namespace Boing
 {
     internal class Impact : GameEntity
     {
-        int time = 0;
+        public int Timer = 0;
 
         public Impact(int x, int y)
         {
@@ -23,7 +23,7 @@ namespace Boing
 
         public override void Update()
         {
-            time++;
+            Timer++;
         }
     }
 }

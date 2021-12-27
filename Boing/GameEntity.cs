@@ -8,6 +8,7 @@ namespace Boing
 {
     internal class GameEntity
     {
+        public string Image = "";
         public int X { get; set; }
         public int Y { get; set; }
 
