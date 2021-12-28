@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,21 +10,24 @@ namespace Boing
 {
     internal class Ball : GameEntity
     {
-        int dx;
-        int dy = 0;
+        float dx;
+        float dy = 0;
         int speed = 5;
+        private GameStuff game;
 
-        public Ball(int dx)
+        public Ball(GameStuff game, int dx)
         {
+            this.game = game;
             X = GameConstants.HalfWidth;
             Y = GameConstants.HalfHeight;
 
             this.dx = dx;
         }
 
-        public override void Draw()
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            var texture = game.ContentManager.Load<Texture2D>("ball");
+            spriteBatch.Draw(texture, new Vector2(X, Y), Color.White);
         }
 
         public override void Update()
@@ -41,15 +46,15 @@ namespace Boing
                     if (X < GameConstants.HalfWidth)
                     {
                         newDirX = 1;
-                        bat = Game.Bats[0];
+                        bat = game.Bats[0];
                     }
                     else
                     {
                         newDirX = -1;
-                        bat = Game.Bats[1];
+                        bat = game.Bats[1];
                     }
 
-                    var differenceY = Y - bat.Y;
+                    float differenceY = Y - bat.Y;
 
                     if (differenceY > -64 && differenceY < 64)
                     {
@@ -57,28 +62,28 @@ namespace Boing
                         dy += differenceY / 128;
                         dy = Math.Min(Math.Max(dy, -1), 1);
                         (dx, dy) = MathHelper.Normalised(dx, dy);
-                        Game.Impacts.Add(new Impact(X - newDirX * 10, Y));
+                        game.Impacts.Add(new Impact(game, X - newDirX * 10, Y));
                         speed++;
-                        Game.AiOffSet = Random.Shared.Next(-10, 10);
+                        game.AiOffSet = Random.Shared.Next(-10, 10);
                         bat.Timer = 10;
 
-                        Game.PlaySound("hit", 5);
+                        game.PlaySound("hit", 5);
 
                         if (speed <= 10)
                         {
-                            Game.PlaySound("hit_slow", 1);
+                            game.PlaySound("hit_slow", 1);
                         }
                         else if (speed <= 12)
                         {
-                            Game.PlaySound("hit_medium", 1);
+                            game.PlaySound("hit_medium", 1);
                         }
                         else if (speed <= 16)
                         {
-                            Game.PlaySound("hit_fast", 1);
+                            game.PlaySound("hit_fast", 1);
                         }
                         else
                         {
-                            Game.PlaySound("hit_veryfast", 1);
+                            game.PlaySound("hit_veryfast", 1);
                         }
                     }
                 }
@@ -88,10 +93,10 @@ namespace Boing
                     dy = -dy;
                     Y += dy;
 
-                    Game.Impacts.Add(new Impact(X, Y));
+                    game.Impacts.Add(new Impact(game, X, Y));
 
-                    Game.PlaySound("bounce", 5);
-                    Game.PlaySound("bounce_synth", 1);
+                    game.PlaySound("bounce", 5);
+                    game.PlaySound("bounce_synth", 1);
                 }
             }
         }

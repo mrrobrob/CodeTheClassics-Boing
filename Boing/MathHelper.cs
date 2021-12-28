@@ -9,12 +9,12 @@ namespace Boing
 {
     public static class MathHelper
     {
-        public static (int x, int y) Normalised (int x, int y)
+        public static (float x, float y) Normalised (float x, float y)
         {
             var vector = new Vector2(x, y);
             vector.Normalize();
 
-            return ((int)vector.X, (int)vector.Y);
+            return (vector.X, vector.Y);
         }
     }
 }
