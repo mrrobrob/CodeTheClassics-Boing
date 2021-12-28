@@ -13,17 +13,16 @@ namespace Boing
         private readonly GameStuff game;
         public int Timer = 0;
 
-        public Impact(GameStuff game, float x, float y)
+        public Impact(GameStuff game, Vector2 position)
         {
-            X = x;
-            Y = y;
+            Position = position;
             this.game = game;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             var texture = game.ContentManager.Load<Texture2D>($"impact{Timer / 2}");
-            spriteBatch.Draw(texture, new Vector2(X, Y), Color.White);
+            spriteBatch.Draw(texture, Position - new Vector2(37.5f, 37.5f), Color.White);
         }
 
         public override void Update()

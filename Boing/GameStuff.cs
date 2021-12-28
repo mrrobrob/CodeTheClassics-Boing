@@ -48,7 +48,7 @@ namespace Boing
 
             if (Ball.Out())
             {
-                var scoringPlayer = Ball.X < GameConstants.HalfWidth ? 1 : 0;
+                var scoringPlayer = Ball.Position.X < GameConstants.HalfWidth ? 1 : 0;
                 var losingPlayer = 1 - scoringPlayer;
 
                 if (Bats[losingPlayer].Timer < 0)

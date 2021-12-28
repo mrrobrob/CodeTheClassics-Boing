@@ -18,8 +18,7 @@ namespace Boing
         public Ball(GameStuff game, int dx)
         {
             this.game = game;
-            X = GameConstants.HalfWidth;
-            Y = GameConstants.HalfHeight;
+            Position = new(GameConstants.HalfWidth, GameConstants.HalfHeight);
 
             this.dx = dx;
         }
@@ -27,23 +26,22 @@ namespace Boing
         public override void Draw(SpriteBatch spriteBatch)
         {
             var texture = game.ContentManager.Load<Texture2D>("ball");
-            spriteBatch.Draw(texture, new Vector2(X, Y), Color.White);
+            spriteBatch.Draw(texture, Position - new Vector2(12,12), Color.White);
         }
 
         public override void Update()
         {
             foreach (int i in Enumerable.Range(0, speed))
             {
-                var origX = X;
+                var origX = Position.X;
 
-                X += dx;
-                Y += dy;
+                Position = new Vector2(Position.X + dx, Position.Y + dy);
 
-                if (Math.Abs(X - GameConstants.HalfWidth) >= 344 && Math.Abs(origX - GameConstants.HalfWidth) < 344)
+                if (Math.Abs(Position.X - GameConstants.HalfWidth) >= 344 && Math.Abs(origX - GameConstants.HalfWidth) < 344)
                 {
                     int newDirX;
                     Bat bat;
-                    if (X < GameConstants.HalfWidth)
+                    if (Position.X < GameConstants.HalfWidth)
                     {
                         newDirX = 1;
                         bat = game.Bats[0];
@@ -54,7 +52,7 @@ namespace Boing
                         bat = game.Bats[1];
                     }
 
-                    float differenceY = Y - bat.Y;
+                    float differenceY = Position.Y - bat.Position.Y;
 
                     if (differenceY > -64 && differenceY < 64)
                     {
@@ -62,7 +60,7 @@ namespace Boing
                         dy += differenceY / 128;
                         dy = Math.Min(Math.Max(dy, -1), 1);
                         (dx, dy) = MathHelper.Normalised(dx, dy);
-                        game.Impacts.Add(new Impact(game, X - newDirX * 10, Y));
+                        game.Impacts.Add(new Impact(game, new Vector2(Position.X - newDirX * 10, Position.Y)));
                         speed++;
                         game.AiOffSet = Random.Shared.Next(-10, 10);
                         bat.Timer = 10;
@@ -88,12 +86,12 @@ namespace Boing
                     }
                 }
 
-                if (Math.Abs(Y - GameConstants.HalfHeight) > 220)
+                if (Math.Abs(Position.Y - GameConstants.HalfHeight) > 220)
                 {
                     dy = -dy;
-                    Y += dy;
+                    Position = new Vector2(Position.X, Position.Y + dy);
 
-                    game.Impacts.Add(new Impact(game, X, Y));
+                    game.Impacts.Add(new Impact(game, Position));
 
                     game.PlaySound("bounce", 5);
                     game.PlaySound("bounce_synth", 1);
@@ -103,7 +101,7 @@ namespace Boing
 
         public bool Out()
         {
-            return X < 0 || X > GameConstants.ScreenWidth;
+            return Position.X < 0 || Position.X > GameConstants.ScreenWidth;
         }
     }
 }

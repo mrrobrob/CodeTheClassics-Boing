@@ -20,8 +20,7 @@ internal class Bat : GameEntity
 
     public Bat(GameStuff game, int playerNo, Func<int>? moveFunc)
     {
-        X = playerNo == 0 ? 40 : 760;
-        Y = GameConstants.HalfHeight;
+        Position = new Vector2(playerNo == 0 ? 40 : 760, GameConstants.HalfHeight);
         this.game = game;
         this.playerNo = playerNo;
 
@@ -31,7 +30,7 @@ internal class Bat : GameEntity
     public override void Draw(SpriteBatch spriteBatch)
     {
         var texture = game.ContentManager.Load<Texture2D>($"bat{playerNo}{frame}");
-        spriteBatch.Draw(texture, new Vector2(X - 80, Y - 80), Color.White);
+        spriteBatch.Draw(texture, Position - new Vector2(80,80), Color.White);
     }
 
     public override void Update()
@@ -39,7 +38,7 @@ internal class Bat : GameEntity
         Timer--;
         var yMovement = moveFunc();
 
-        Y = Math.Min(400, Math.Max(80, Y + yMovement));
+        Position = new Vector2(Position.X, Math.Min(400, Math.Max(80, Position.Y + yMovement)));
 
         frame = 0;
 
@@ -60,13 +59,13 @@ internal class Bat : GameEntity
 
     public int AiMoveFunc()
     {
-        var xDistance = Math.Abs(game.Ball.X - X);
+        var xDistance = Math.Abs(game.Ball.Position.X - Position.X);
         var targetY1 = GameConstants.HalfHeight;
-        var targetY2 = game.Ball.Y + game.AiOffSet;
+        var targetY2 = game.Ball.Position.Y + game.AiOffSet;
         var weight1 = Math.Min(1, xDistance / GameConstants.HalfWidth);
         var weight2 = 1 - weight1;
         var targetY = (weight1 * targetY1) + (weight2 * targetY2);
-        return (int)Math.Min(GameConstants.AiSpeed, Math.Max(-GameConstants.AiSpeed, targetY - Y));
+        return (int)Math.Min(GameConstants.AiSpeed, Math.Max(-GameConstants.AiSpeed, targetY - Position.Y));
     }
 }
 

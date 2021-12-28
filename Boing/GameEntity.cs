@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,7 @@ namespace Boing
     internal class GameEntity
     {
         public string Image = "";
-        public float X { get; set; }
-        public float Y { get; set; }
+        public Vector2 Position { get; set; }
 
         public virtual void Update()
         {

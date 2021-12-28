@@ -21,7 +21,7 @@ namespace Boing
             graphics = new GraphicsDeviceManager(this);            
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            gameStuff = new GameStuff(Content, p1Controls, null);
+            gameStuff = new GameStuff(Content, p1Controls, p2Controls);
         }
 
         int p1Controls()
@@ -40,6 +40,24 @@ namespace Boing
 
             return move;
         }
+
+        int p2Controls()
+        {
+            var move = 0;
+            var kstate = Keyboard.GetState();
+
+            if (kstate.IsKeyDown(Keys.M))
+            {
+                move = GameConstants.PlayerSpeed;
+            }
+            else if (kstate.IsKeyDown(Keys.K))
+            {
+                move = -GameConstants.PlayerSpeed;
+            }
+
+            return move;
+        }
+
 
         protected override void Initialize()
         {
