@@ -21,7 +21,7 @@ namespace Boing
             graphics = new GraphicsDeviceManager(this);            
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            gameStuff = new GameStuff(Content, p1Controls, p2Controls);
+            gameStuff = new GameStuff(Content, p1Controls, null);
         }
 
         int p1Controls()
