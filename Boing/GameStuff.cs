@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -17,7 +18,12 @@ namespace Boing
         public List<Impact> Impacts = new();
         public int AiOffSet = 0;
 
-        public void PlaySound(string name, int speed) { }
+        public void PlaySound(string name, int count) {
+            var index = Random.Shared.Next(0, count);
+
+            var sound = ContentManager.Load<SoundEffect>($"{name}{index}");
+            sound.Play();
+        }
 
         public GameStuff(ContentManager contentManager, Func<int> player1Controls, Func<int>? player2Controls)
         {

@@ -109,6 +109,42 @@
 /processorParam:TextureFormat=Color
 /build:blank.png
 
+#begin bounce_synth0.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:bounce_synth0.ogg
+
+#begin bounce0.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:bounce0.ogg
+
+#begin bounce1.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:bounce1.ogg
+
+#begin bounce2.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:bounce2.ogg
+
+#begin bounce3.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:bounce3.ogg
+
+#begin bounce4.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:bounce4.ogg
+
 #begin digit00.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -469,6 +505,12 @@
 /processorParam:TextureFormat=Color
 /build:digit29.png
 
+#begin down.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:down.ogg
+
 #begin effect0.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -492,6 +534,66 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:effect1.png
+
+#begin hit_fast0.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:hit_fast0.ogg
+
+#begin hit_medium0.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:hit_medium0.ogg
+
+#begin hit_slow0.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:hit_slow0.ogg
+
+#begin hit_synth0.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:hit_synth0.ogg
+
+#begin hit_veryfast0.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:hit_veryfast0.ogg
+
+#begin hit0.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:hit0.ogg
+
+#begin hit1.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:hit1.ogg
+
+#begin hit2.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:hit2.ogg
+
+#begin hit3.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:hit3.ogg
+
+#begin hit4.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:hit4.ogg
 
 #begin impact0.png
 /importer:TextureImporter
@@ -589,6 +691,12 @@
 /processorParam:TextureFormat=Color
 /build:over.png
 
+#begin score_goal0.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:score_goal0.ogg
+
 #begin table.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -600,4 +708,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:table.png
+
+#begin theme.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:theme.ogg
+
+#begin up.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:up.ogg
 
