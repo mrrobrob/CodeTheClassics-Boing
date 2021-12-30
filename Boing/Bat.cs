@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Boing.Controls;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -13,18 +14,17 @@ internal class Bat : GameEntity
     public int Timer = 0;
     private readonly GameStuff game;
     public int playerNo;
+    private readonly IControl controls;
     private int score = 0;
-    Func<int> moveFunc;
     public int Score = 0;
     int frame = 0;
 
-    public Bat(GameStuff game, int playerNo, Func<int>? moveFunc)
+    public Bat(GameStuff game, int playerNo, IControl controls)
     {
         Position = new Vector2(playerNo == 0 ? 40 : 760, GameConstants.HalfHeight);
         this.game = game;
         this.playerNo = playerNo;
-
-        this.moveFunc = moveFunc ?? AiMoveFunc;
+        this.controls = controls;
     }
 
     public override void Draw(SpriteBatch spriteBatch)
@@ -36,7 +36,7 @@ internal class Bat : GameEntity
     public override void Update()
     {
         Timer--;
-        var yMovement = moveFunc();
+        var yMovement = controls.Move(this);
 
         Position = new Vector2(Position.X, Math.Min(400, Math.Max(80, Position.Y + yMovement)));
 
@@ -53,19 +53,8 @@ internal class Bat : GameEntity
                 frame = 1;
             }
         }
-
-        Image = $"bat{playerNo}{frame}";
     }
 
-    public int AiMoveFunc()
-    {
-        var xDistance = Math.Abs(game.Ball.Position.X - Position.X);
-        var targetY1 = GameConstants.HalfHeight;
-        var targetY2 = game.Ball.Position.Y + game.AiOffSet;
-        var weight1 = Math.Min(1, xDistance / GameConstants.HalfWidth);
-        var weight2 = 1 - weight1;
-        var targetY = (weight1 * targetY1) + (weight2 * targetY2);
-        return (int)Math.Min(GameConstants.AiSpeed, Math.Max(-GameConstants.AiSpeed, targetY - Position.Y));
-    }
+
 }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Boing.Controls;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,11 +26,14 @@ namespace Boing
             sound.Play();
         }
 
-        public GameStuff(ContentManager contentManager, Func<int> player1Controls, Func<int>? player2Controls)
+        public GameStuff(ContentManager contentManager, string player1Controls, string player2Controls)
         {
             ContentManager = contentManager;
-            Bats.Add(new Bat(this, 0, player1Controls));
-            Bats.Add(new Bat(this, 1, player2Controls));
+
+            var controlFactory = new ControlFactory();
+
+            Bats.Add(new Bat(this, 0, controlFactory.Create(this, player1Controls)));
+            Bats.Add(new Bat(this, 1, controlFactory.Create(this, player2Controls)));
             Ball = new Ball(this, -1);
         }
 

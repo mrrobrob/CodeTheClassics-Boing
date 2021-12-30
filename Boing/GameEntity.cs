@@ -10,7 +10,6 @@ namespace Boing
 {
     internal class GameEntity
     {
-        public string Image = "";
         public Vector2 Position { get; set; }
 
         public virtual void Update()
