@@ -10,8 +10,8 @@ namespace Boing
 {
     internal class Ball : GameEntity
     {
-        float dx;
-        float dy = 0;
+        Vector2 delta;
+
         int speed = 5;
         private GameStuff game;
 
@@ -20,13 +20,13 @@ namespace Boing
             this.game = game;
             Position = new(GameConstants.HalfWidth, GameConstants.HalfHeight);
 
-            this.dx = dx;
+            delta = new Vector2(dx, 0);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             var texture = game.ContentManager.Load<Texture2D>("ball");
-            spriteBatch.Draw(texture, Position - new Vector2(12,12), Color.White);
+            spriteBatch.Draw(texture, Position - new Vector2(12, 12), Color.White);
         }
 
         public override void Update()
@@ -35,7 +35,7 @@ namespace Boing
             {
                 var origX = Position.X;
 
-                Position = new Vector2(Position.X + dx, Position.Y + dy);
+                Position = Position + delta;
 
                 if (Math.Abs(Position.X - GameConstants.HalfWidth) >= 344 && Math.Abs(origX - GameConstants.HalfWidth) < 344)
                 {
@@ -56,10 +56,11 @@ namespace Boing
 
                     if (differenceY > -64 && differenceY < 64)
                     {
-                        dx = -dx;
-                        dy += differenceY / 128;
-                        dy = Math.Min(Math.Max(dy, -1), 1);
-                        (dx, dy) = MathHelper.Normalised(dx, dy);
+                        delta.X = -delta.X;
+                        delta.Y += differenceY / 128;
+                        delta.Y = Math.Min(Math.Max(delta.Y, -1), 1);
+
+                        delta.Normalize();
                         game.Impacts.Add(new Impact(game, new Vector2(Position.X - newDirX * 10, Position.Y)));
                         speed++;
                         game.AiOffSet = Random.Shared.Next(-10, 10);
@@ -88,8 +89,9 @@ namespace Boing
 
                 if (Math.Abs(Position.Y - GameConstants.HalfHeight) > 220)
                 {
-                    dy = -dy;
-                    Position = new Vector2(Position.X, Position.Y + dy);
+                    delta.Y = -delta.Y;
+
+                    Position = new Vector2(Position.X, Position.Y + delta.Y);
 
                     game.Impacts.Add(new Impact(game, Position));
 
