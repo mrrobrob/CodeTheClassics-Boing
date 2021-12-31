@@ -35,7 +35,7 @@ namespace Boing
             {
                 var origX = Position.X;
 
-                Position = Position + delta;
+                Position += delta;
 
                 if (Math.Abs(Position.X - GameConstants.HalfWidth) >= 344 && Math.Abs(origX - GameConstants.HalfWidth) < 344)
                 {

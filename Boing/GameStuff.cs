@@ -19,11 +19,21 @@ namespace Boing
         public List<Impact> Impacts = new();
         public int AiOffSet = 0;
 
-        public void PlaySound(string name, int count) {
-            var index = Random.Shared.Next(0, count);
+        public void PlaySound(string name, int count)
+        {
+            if (count > 0)
+            {
+                var index = Random.Shared.Next(0, count);
 
-            var sound = ContentManager.Load<SoundEffect>($"{name}{index}");
-            sound.Play();
+
+                var sound = ContentManager.Load<SoundEffect>($"{name}{index}");
+                sound.Play();
+            }
+            else
+            {
+                var sound = ContentManager.Load<SoundEffect>(name);
+                sound.Play();
+            }
         }
 
         public GameStuff(ContentManager contentManager, string player1Controls, string player2Controls)
@@ -93,6 +103,26 @@ namespace Boing
             {
                 gameEntity.Draw(spriteBatch);
             }
+
+            foreach (var bat in Bats)
+            {
+                var score = bat.Score.ToString("D2").ToCharArray();
+
+                foreach (int i in Enumerable.Range(0, 2))
+                {
+                    var p = bat.playerNo;
+                    var colour = "0";
+                    var other_p = 1 - p;
+                    if (Bats[other_p].Timer > 0 && Ball.Out())
+                    {
+                        colour = (p == 0) ? "2" : "1";
+                    }
+                    var image = ContentManager.Load<Texture2D>($"digit{colour}{score[i]}");
+                    spriteBatch.Draw(image,  new Vector2(255 + (160 * p) + (i * 55), 46), Color.White);
+                }
+            }
+
+
         }
     }
 }

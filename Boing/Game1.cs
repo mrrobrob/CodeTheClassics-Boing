@@ -15,14 +15,14 @@ namespace Boing
         private GraphicsDeviceManager graphics;
         private SpriteBatch? _spriteBatch;
         private SpriteBatch spriteBatch => _spriteBatch ?? throw new Exception("Spritebatch not configured");
-        GameStuff gameStuff;
+        public Menu menu;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);            
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            gameStuff = new GameStuff(Content, "p1", "ai");
+            menu = new Menu(this);
         }
 
         protected override void Initialize()
@@ -43,7 +43,7 @@ namespace Boing
 
         protected override void Update(GameTime gameTime)
         {
-            gameStuff.Update();
+            menu.Update();
             base.Update(gameTime);
         }
 
@@ -52,7 +52,7 @@ namespace Boing
             GraphicsDevice.Clear(Color.SkyBlue);
 
             spriteBatch.Begin();
-            gameStuff.Draw(spriteBatch);
+            menu.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

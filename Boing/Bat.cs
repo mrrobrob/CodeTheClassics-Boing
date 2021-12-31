@@ -15,7 +15,6 @@ internal class Bat : GameEntity
     private readonly GameStuff game;
     public int playerNo;
     private readonly IControl controls;
-    private int score = 0;
     public int Score = 0;
     int frame = 0;
 
