@@ -1,4 +1,4 @@
-﻿A port of Boing to .NET and monogame from [[https://github.com/Wireframe-Magazine/Code-the-Classics][Code the Classics]] book.
+﻿A port of Boing to .NET and monogame from Code the Classics book, https://github.com/Wireframe-Magazine/Code-the-Classics
 
 * To compile and run:
 
